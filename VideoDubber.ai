@@ -1,0 +1,147 @@
+// pages/index.js
+import Head from 'next/head';
+import { useState } from 'react';
+import { createStyles, MantineProvider, Header as MantineHeader, Menu, Button, Group, Container, Title, Text, Grid, Card, SimpleGrid, Image } from '@mantine/core';
+
+const useStyles = createStyles((theme) => ({
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: `${theme.spacing.md}px ${theme.spacing.lg}px`,
+  },
+  menu: {
+    marginLeft: theme.spacing.md,
+  },
+  main: {
+    padding: 20,
+  },
+  trustedBySection: {
+    textAlign: 'center',
+    marginTop: 30,
+    marginBottom: 40,
+  },
+  grid: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  card: {
+    textAlign: 'center',
+    padding: theme.spacing.lg,
+  },
+}));
+
+const Header = () => {
+  const { classes } = useStyles();
+  const [opened, setOpened] = useState(false);
+
+  return (
+    <MantineHeader height={60} className={classes.header}>
+      <Container className={classes.header}>
+        <div>Logo</div>
+        <Group>
+          <Menu
+            transition="pop"
+            position="bottom-end"
+            width={200}
+            opened={opened}
+            onClose={() => setOpened(false)}
+            onOpen={() => setOpened(true)}
+          >
+            <Menu.Target>
+              <Button variant="subtle">For Business</Button>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item>Enterprise</Menu.Item>
+              <Menu.Item>Teams</Menu.Item>
+              <Menu.Item>Education</Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </Group>
+      </Container>
+    </MantineHeader>
+  );
+};
+
+const Pricing = () => {
+  const { classes } = useStyles();
+
+  return (
+    <Container>
+      <Title align="center" mt={30} mb={20}>
+        Pricing
+      </Title>
+      <Text align="center" mb={40}>
+        Choose a plan that suits your needs.
+      </Text>
+      <Grid className={classes.grid}>
+        <Grid.Col span={4}>
+          <Card shadow="sm" className={classes.card}>
+            <Title order={2}>Free</Title>
+            <Text>Basic features</Text>
+            <Button variant="outline" fullWidth mt="md">
+              Get Started
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <Card shadow="sm" className={classes.card}>
+            <Title order={2}>Pro</Title>
+            <Text>Advanced features</Text>
+            <Button variant="outline" fullWidth mt="md">
+              Get Started
+            </Button>
+          </Card>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <Card shadow="sm" className={classes.card}>
+            <Title order={2}>Enterprise</Title>
+            <Text>All features</Text>
+            <Button variant="outline" fullWidth mt="md">
+              Contact Us
+            </Button>
+          </Card>
+        </Grid.Col>
+      </Grid>
+    </Container>
+  );
+};
+
+const TrustedBy = () => {
+  const { classes } = useStyles();
+
+  return (
+    <Container className={classes.trustedBySection}>
+      <Title align="center" mt={30} mb={20}>
+        Trusted by teams at
+      </Title>
+      <Text align="center" mb={40}>
+        Companies that trust us
+      </Text>
+      <SimpleGrid cols={5} spacing="lg">
+        <Image src="/logos/logo1.png" alt="Company 1" />
+        <Image src="/logos/logo2.png" alt="Company 2" />
+        <Image src="/logos/logo3.png" alt="Company 3" />
+        <Image src="/logos/logo4.png" alt="Company 4" />
+        <Image src="/logos/logo5.png" alt="Company 5" />
+      </SimpleGrid>
+    </Container>
+  );
+};
+
+export default function Home() {
+  return (
+    <div>
+      <Head>
+        <title>Veed Pricing Page</title>
+        <meta name="description" content="Pricing page" />
+      </Head>
+      <Header />
+      <main className={useStyles().main}>
+        <Pricing />
+        <TrustedBy />
+      </main>
+    </div>
+  );
+}
+
